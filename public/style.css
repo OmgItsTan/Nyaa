@@ -1,0 +1,90 @@
+*{
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+#Gamename{
+    font-size: 100px;
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+html, body {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    display: inline-block;
+    height: 100%;
+    width: 49%;
+    margin-bottom: 0;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 2em;
+    line-height: 1.2;
+    text-align: center;
+    background-color: white;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+
+.btn:hover,
+.btn:focus {
+    color: white;
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    background-color: black;
+}
+
+
+
+.info label {
+    display: block;
+
+}
+
+.info input {
+    text-align: center;
+    padding: 10px;
+    width: 200px;
+    height: 60px;
+    font-family: 'Quicksand', sans-serif;
+    color: #A22FB0;
+    font-weight: 300;
+    font-size: 54px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background: transparent;
+}
+
+.info input#inputPlayerName {
+    width: 90%;
+}
+
+.info {
+    text-align: center;
+    font-size: 1.5em;
+    color: #ECFFE0;
+    height: 30%;
+    padding-top: 1%;
+}
+
+.btn {
+    width: 75%;
+    height: 50%;
+    border-radius: 25px;
+}

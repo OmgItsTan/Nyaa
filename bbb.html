@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div#game_board{
+	background:#000;
+	border:#FFF 1px solid;
+	width:800px;
+	height:800px;
+	padding:24px;
+	margin:0px auto;
+	float: left;
+}
+div#game_board > div{
+	background: url(card_bg.jpg) no-repeat;
+	border:#FFF 1px solid;
+	width:71px;
+	height:71px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:64px;
+	cursor:pointer;
+	text-align:center;
+}
+div#score_board{
+	background:#000;
+	color:#FFF;
+	font-size:36px;
+	padding:24px;
+	margin:100px auto;
+	float: left;
+}
+</style>
+<script>
+var board = [];
+var cardSelectedIndex = [];
+var cardSelected = [];
+var cardMatched = 0;
+var name;
+var score = 0;
+var turn = 0;
+var timer = 10;
+function generateNewBoard(){
+	for(var i = 0; i<18; i+=1){
+		board.push({
+			id: i,
+			matched: false
+		});
+		board.push({
+			id: i,
+			matched: false
+		});
+	}
+}
+Array.prototype.shuffleBoard = function(){
+    for(var i = (this.length) - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i+1));
+        var temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+function showScore(){
+	document.getElementById('score_board').innerHTML = '<p>Player: '+name+'</p><p>Score: '+score+'</p><p>Turn: '+turn+'</p>';
+}
+function gameStart(){
+	board = [];
+	cardMatched = 0;
+	score = 0;
+	turn = 0;
+	alert("Generating new board, You have 4 seconds to memorize!")
+	generateNewBoard();
+    board.shuffleBoard();
+    showCards();
+    setTimeout(hideCards, 4000);
+    showScore();
+ }
+function showCards(){
+	var output = '';
+	for(var i = 0; i < board.length; i++){
+		output += '<div style="background:#FFF">'+board[i].id+'</div>';
+	}
+	document.getElementById('game_board').innerHTML = output;
+}
+function hideCards(){
+	var output = '';
+	for(var i = 0; i < board.length; i++){
+		output += '<div id="'+i+'" onclick="cardSelectedEvent(this,\''+board[i].id+'\')"></div>';
+	}
+	document.getElementById('game_board').innerHTML = output;
+}
+function cardSelectedEvent(card,cardIndex){
+	if(card.innerHTML == "" && cardSelectedIndex.length < 2){
+		card.style.background = '#FFF';
+		card.innerHTML = cardIndex;
+		if(cardSelectedIndex.length == 0){
+			cardSelectedIndex.push(cardIndex);
+			cardSelected.push(card.id);
+		} else if(cardSelectedIndex.length == 1){
+			cardSelectedIndex.push(cardIndex);
+			cardSelected.push(card.id);
+			turn++;
+			if(cardSelectedIndex[0] == cardSelectedIndex[1]){
+				cardMatched += 2;
+				cardSelectedIndex = [];
+            	cardSelected = [];
+            	score++;
+				if(cardMatched == board.length){
+					alert("Congrats! You matched all cards in "+turn+" turns");
+					document.getElementById('game_board').innerHTML = "";
+					gameStart();
+				}
+			} else {
+				setTimeout(flipBack, 600);
+			}
+			showScore();
+		}
+	}
+}
+function flipBack(){
+	var card1 = document.getElementById(cardSelected[0]);
+	var card2 = document.getElementById(cardSelected[1]);
+	card1.style.background = 'url(card_bg.jpg) no-repeat';
+    card1.innerHTML = "";
+	card2.style.background = 'url(card_bg.jpg) no-repeat';
+    card2.innerHTML = "";
+	cardSelectedIndex = [];
+    cardSelected = [];
+}
+</script>
+</head>
+<body bgcolor="#000">
+<div id="game_board"></div>
+<div id="score_board"></div>
+<script>
+	do{
+		name = prompt("What's your name?");
+	}while(name === '')
+	gameStart();
+</script>
+</body>
+</html>
